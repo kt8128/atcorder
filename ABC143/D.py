@@ -1,15 +1,13 @@
+import bisect
+
 n = int(input())
 L = list(map(int, input().split()))
 L.sort()
 count = 0
 
-for i, l1 in enumerate(L):
-    for k, l2 in enumerate(L[i+1:]):
-        num = i + k + 2
-        for l3 in L[num:][::-1]:
-            if l1 < l2 + l3 and l2 < l1 + l3 and l3 < l2 + l1:
-                count += 1
-            else:
-                break
+for i in range(n-2):
+    for j in range(i+1, n-1):
+        k = bisect.bisect_left(L[j+1:], L[i]+L[j])
+        count += k
 
 print(count)

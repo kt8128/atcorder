@@ -1,13 +1,14 @@
 l, r = map(int, input().split())
-m = 100000000
-flag = 0
-if r - l > 2019:
-    flag = 1
-for i in range(l, l+2019):
-    m = min(m, i*)
 
-if flag == 0:
-    a = (l % 2019) * ((l+1) % 2019) % 2019
-    print(a)
-elif flag == 1:
+if (r-1) * r < 2019:
+    print(l * (l+1))
+elif r - l > 2019:
     print(0)
+else:
+    ans = 2019
+    for i in range(l, r):
+        for k in range(i+1, r+1):
+            a = ((i % 2019) * (k % 2019)) % 2019
+            if a < ans:
+                ans = a
+    print(ans)
