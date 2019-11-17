@@ -1,3 +1,4 @@
+# mergeソート、マージソート
 def merge_sort(arr):
     if len(arr) <= 1:
         return arr
@@ -35,3 +36,31 @@ def merge(left, right):
     if r_i < len(right):
         merged.extend(right[r_i:])
     return merged
+
+
+# 素因数分解
+def prime_factorize(n):
+    a = []
+    while n % 2 == 0:
+        a.append(2)
+        n //= 2
+    f = 3
+    while f * f <= n:
+        if n % f == 0:
+            a.append(f)
+            n //= f
+        else:
+            f += 2
+    if n != 1:
+        a.append(n)
+    return a
+
+
+# 素数判定
+def is_prime(q):
+    q = abs(q)
+    if q == 2:
+        return True
+    if q < 2 or q & 1 == 0:
+        return False
+    return pow(2, q-1, q) == 1
