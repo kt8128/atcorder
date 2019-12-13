@@ -1,59 +1,27 @@
+def cmb(n, r, p):
+    if (r < 0) or (n < r):
+        return 0
+    r = min(r, n - r)
+    return fact[n] * factinv[r] * factinv[n-r] % p
+
+
+p = 10 ** 9 + 7
+N = 10 ** 6  # N は必要分だけ用意する
+fact = [1, 1]
+factinv = [1, 1]
+inv = [0, 1]
+
+for i in range(2, N + 1):
+    fact.append((fact[-1] * i) % p)
+    inv.append((-inv[p % i] * (p // i)) % p)
+    factinv.append((factinv[-1] * inv[-1]) % p)
+
 x, y = map(int, input().split())
-ans = 0
-root = []
-root.append([x, y])
-m = 'l'
-flag = 0
-cnt = 0
-if (x+y) % 3 != 0:
+mod = 10**9 + 7
+if (x + y) % 3 != 0:
     print(0)
-else:
-    r = 0
-    while True:
-        print(root)
-        print(m)
-        if len(root) == 1:
-            cnt += 1
-        if cnt == 3:
-            break
-        if len(root) == 0:
-            ans = 0
-            break
-        if m == 'l':
-            t = [root[0][0]-2, root[0][1]-1]
-            root.insert(0, t)
-        else:
-            t = [root[0][0]-1, root[0][1]-2]
-            root.insert(0, t)
-            r += 1
-            m = 'l'
-        if root[0] == [0, 0]:
-            root.pop(0)
-            if m == 'r':
-                pass
-            else:
-                m = 'r'
-                for _ in range(r):
-                    root.pop(0)
-                r = 0
-            ans += 1
-        elif sum(root[0]) < 3:
-            root.pop(0)
-            if m == 'r':
-                pass
-            else:
-                m = 'r'
-                for _ in range(r):
-                    root.pop(0)
-                r = 0
-        elif (root[0][0] <= 1 and root[0][1] > 2) or (root[0][1] <= 1 and root[0][0] > 2):
-            root.pop(0)
-            if m == 'r':
-                pass
-            else:
-                m = 'r'
-                for _ in range(r):
-                    root.pop(0)
-                r = 0
-        ans = ans % (10 ** 9 + 7)
-print(ans)
+    exit()
+n = (2*y - x)//3
+m = (2*x - y)//3
+
+print(cmb(n+m, n, p))
